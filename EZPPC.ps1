@@ -1,6 +1,5 @@
 Add-Type -assembly System.Windows.Forms
 
-
 $main_form = New-Object System.Windows.Forms.Form
 $main_form.Width=400
 $main_form.Height=250
@@ -9,12 +8,10 @@ $main_form.MaximizeBox= $False
 $main_form.Text="EZ Power Plan Changer"
 $main_form.StartPosition = "CenterScreen"
 $main_form.SizeGripStyle = "Hide"
-$main_form.Icon="C:\Users\yeami\Desktop\PPIcon.ico"
 $txt_Cp=New-Object System.Windows.Forms.Label
 $txt_Cp.Location= New-Object System.Drawing.Size(120,10)
 $txt_Cp.Text="Current Plan:"
 $txt_Cp.AutoSize=$true
-
 
 $txt=New-Object System.Windows.Forms.Label
 $txt.Location= New-Object System.Drawing.Size(190,10)
@@ -33,9 +30,7 @@ function getCurrentPlan
   $txt.Text=$pp[1].Replace(")","")
 }
 
-
 function ItemsofListBox {
-
 $listBox.Items.Clear()
 [string]$powerplans=powercfg /list
 $powerplans=$powerplans.Replace("Existing Power Schemes (* Active) -----------------------------------",'').Trim()
@@ -47,22 +42,14 @@ foreach ($item in $psp)
   $listBox.Items.Add($item)
 }  
 }
-function policyChanger {
- [string]$c_Policy= Get-ExecutionPolicy
 
- if($c_Policy -ne "RemoteSigned")
- {
-  Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
- }
- 
+function policyChanger {
+  Set-ExecutionPolicy Undefined  -Scope CurrentUser
 }
 
+policyChanger
 getCurrentPlan
 ItemsofListBox
-policyChanger
-
-
-
 
 $btn=New-Object System.Windows.Forms.Button
 $btn.Location= New-Object System.Drawing.Size(150,150)
@@ -85,36 +72,15 @@ powercfg /s $selectedPlan[0].Trim()
 getCurrentPlan
 }
 
-
 $btn.add_Click{
   changerAll 
-
 }
-
 $add_ultimate.add_Click{
 addUltimatePowerPlan
 }
-
 $main_form.Controls.Add($listBox)
 $main_form.Controls.Add($btn)
 $main_form.Controls.Add($txt_Cp)
 $main_form.Controls.Add($txt)
 $main_form.Controls.Add($add_ultimate)
 $main_form.ShowDialog()
-
-
- 
-
-
-
- 
-  
-
-
-
-
-
-
- 
-
-          
