@@ -8,6 +8,8 @@ $main_form.MaximizeBox= $False
 $main_form.Text="EZ Power Plan Changer"
 $main_form.StartPosition = "CenterScreen"
 $main_form.SizeGripStyle = "Hide"
+# change this line to load form icon
+# $main_form.Icon="C:\Users\yeami\Desktop\PPIcon.ico"
 $txt_Cp=New-Object System.Windows.Forms.Label
 $txt_Cp.Location= New-Object System.Drawing.Size(120,10)
 $txt_Cp.Text="Current Plan:"
